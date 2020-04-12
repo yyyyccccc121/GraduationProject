@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ittttt.provider.mapper.SpaceMapper">
+
+	<select id="findAllDynamic" resultType="com.ittttt.provider.pojo.Dynamic">
+        select * from Dynamic
+	</select>
+
+	<select id="findNumberById" resultType="java.lang.String">
+        select accountNumber from DynamicIdAccountNumber where id = #{id}
+	</select>
+
+	<select id="findAllDynamicComment" resultType="com.ittttt.provider.pojo.DynamicComment">
+        select * from DynamicComment where id = #{id}
+	</select>
+
+	<select id="findImageById" resultType="com.ittttt.provider.pojo.DynamicImage">
+        select * from DynamicImage where id = #{id}
+	</select>
+
+    <insert id="insertToDynamic" parameterType="com.ittttt.provider.pojo.Dynamic">
+		insert into Dynamic (id,theTitle,theDate) values (#{id},#{theTitle},#{theDate})
+	</insert>
+
+    <insert id="insertToDynamicAccountNumber" parameterType="com.ittttt.provider.pojo.DynamicIdAccountNumber">
+		insert into DynamicIdAccountNumber (id,accountNumber) values (#{id},#{accountNumber})
+	</insert>
+
+    <insert id="insertToDynamicImage" parameterType="com.ittttt.provider.pojo.DynamicImage">
+		insert into DynamicImage (id,route) values (#{id},#{route})
+	</insert>
+
+	<insert id="addComment" parameterType="com.ittttt.provider.pojo.DynamicComment">
+		insert into DynamicComment (id,commentPeople,commentContent) values (#{theId},#{nickname},#{str})
+	</insert>
+
+	<update id="addAgree" parameterType="java.lang.String">
+		update Dynamic SET
+		 praisePeople = #{names}
+		 WHERE id = #{theId}
+	</update>
+</mapper>

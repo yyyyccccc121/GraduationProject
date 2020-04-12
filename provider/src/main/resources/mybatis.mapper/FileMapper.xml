@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ittttt.provider.mapper.FileMapper">
+
+	<select id="findRealFileName" resultType="java.lang.String">
+		select  realFileName from TheFile where uuidFileName = #{uuidFileName}
+	</select>
+
+    <insert id="addToTheFile" parameterType="com.ittttt.provider.pojo.TheFile">
+		insert into TheFile (uuidFileName,realFileName) values (#{uuidFileName},#{realFileName})
+	</insert>
+
+	<insert id="saveAudio" parameterType="com.ittttt.provider.pojo.TheAudio">
+		insert into TheAudio (uuidAudioName,theTime) values (#{uuidAudioName},#{theTime})
+	</insert>
+
+	<select id="findTheTimeById" resultType="java.lang.String">
+		select  theTime from TheAudio where uuidAudioName = #{uuidAudioName}
+	</select>
+</mapper>

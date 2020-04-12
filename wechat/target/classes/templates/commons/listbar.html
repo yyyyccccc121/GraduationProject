@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>列表栏</title>
+</head>
+<body>
+<div th:fragment="listbar">
+
+    <br/>
+    <!--搜索框-->
+    <div class="searchBox">
+        <input class="inputBox" placeholder="Search friends or group chat" type="text" onkeyup="search()" id="search">
+        <button onclick="addGroup()"><img src="https://i.postimg.cc/0Q6JfdmG/u-1385058234-3576270783-fm-26-gp-0.jpg" width="18px" height="18px" style="border-radius: 50%"></button>
+    </div>
+    <br/>
+
+    <!--联系人列表-->
+    <div id="UserList" style="display: none">
+    </div>
+
+    <!--消息列表-->
+    <div id="MessageList" style="margin-left: 10px">
+    </div>
+
+    <!--搜索结果列表-->
+    <div id="SearchResultsList">
+    </div>
+
+    <!--群聊列表-->
+    <div id="GroupChatList">
+    </div>
+
+    <!--游戏列表-->
+    <div id="GameList" style="display: none">
+
+    </div>
+</div>
+</body>
+</html>

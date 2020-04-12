@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天栏</title>
+</head>
+<body>
+<div th:fragment="chatbar">
+    <!---->
+    <div id="UserDetail">
+    </div>
+
+    <!--聊天框上的名字-->
+    <div id="chatName" style="margin-left: 20px; margin-top: 20px;width: 100px">
+    </div>
+
+    <!-- 和正在聊天的人或群聊的账号,不会显示出来 -->
+    <div id="accountNumber" style="display: none">
+        <p id="toAccountNumber"></p>
+    </div>
+
+    <!-- 省略号 -->
+    <span id="ellipsis" onclick="openGroupInformation()" style="display:none; float:right; margin-right: 400px; margin-top: 10px">
+        <img src="https://i.postimg.cc/vZbMgY33/u-1609984633-1482947880-fm-26-gp-0.jpg" th:width="50px" th:height="40px">
+    </span>
+
+    <br/>
+
+    <!--聊天框-->
+    <div id="ChatBox" style="display: none">
+        <!-- 显示框 -->
+        <div id="messageView" style="border:1px solid antiquewhite;overflow-y:auto; overflow-x:auto; height:400px; width:700px">
+        </div>
+        <!--表情包-->
+        <div id="emojiWrapper" style="display: none; border:1px solid gainsboro; position:absolute;left:400px; top:100px;width:450px;height: 300px">
+        </div>
+        <div>
+            <!-- 表情部分 -->
+            <div style = "float:left;margin-left: 15px;margin-top: 10px">
+<!--                <input id="showCate" type="button">-->
+                <img id="showCate" type="button" src="https://i.postimg.cc/s2t2S4wR/u-3636649349-687543381-fm-26-gp-0.jpg" height="25px" width="35px" style="border-radius: 50%">&nbsp;
+            </div>
+            <!-- 图片或视频部分 -->
+            <div style = "float:left;margin-left: 15px;margin-top: 10px">
+                <form id="sendImageForm" enctype="multipart/form-data">
+                    <label for="sendImage" class="imageLable" style="position: relative;">
+
+                    <a href="javascript:void(0)" id="sendImageBtn">
+                        <img src="https://i.postimg.cc/gJVGhFxv/u-3260603760-3805228606-fm-26-gp-0.jpg" height="25px" width="35px">
+                    </a>
+
+
+                        <!--                    <img id="sendImageBtn" src="https://i.postimg.cc/W3cwzzzw/u-2862203040-3186546841-fm-26-gp-0.jpg" height="25px" width="35px">-->
+<!--                    <input id="sendImageBtn" class="btn btn-success" type="button" th:value="发送图片"/>-->
+
+                    <input id="sendImage" type="file" th:value="发送图片" name="image" style="position: absolute;width: 1px;height: 1px;left: 0;opacity: 0;overflow: hidden"
+                           accept="image/jpg,image/jpeg,image/png,image/gif,video/mp4,video/webm,video/ogg"/>
+                    </label>
+                </form>
+            </div>
+
+            <!-- 文件部分 -->
+            <div style = "float:left;margin-left: 15px;margin-top: 10px">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <label for="asd" class="imageLable" style="position: relative;">
+
+                        <a href="javascript:void(0)" id="upload">
+                            <img src="https://i.postimg.cc/d3KNkfCR/QQ-20200131193042.png" height="25px" width="35px">
+                        </a>
+
+                        <input id="asd" type="file" th:value="file" name="file" style="position: absolute;width: 1px;height: 1px;left: 0;opacity: 0;overflow: hidden"/>
+                    </label>
+                </form>
+            </div>
+<!--            <div style = "float:left;margin-top: 10px">-->
+<!--                <button id="upload">发送文件</button>-->
+<!--            </div>-->
+            <!-- 音频部分 -->
+            <audio controls autoplay></audio>
+            <div class="contrs" style="float:left;margin-left:15px;margin-top: 10px">
+                <!--                <input type="button" value="开始录音" onclick="startRecording()"/>-->
+                <img onclick="startRecording()" src="https://i.postimg.cc/xTfbfPZW/QQ-20200131191210-1.png" height="25px" width="40px">
+                <span id="recording">
+                </span>
+            </div>
+
+        </div>
+        <br/><br/><br/>
+        <div>
+            <textarea type="text" id="message" style="height:60px; width:700px"></textarea>
+        </div>
+        <input type="button" th:value="发送" onclick="sendMessage()"/>
+    </div>
+
+    <!-- 群聊信息框 -->
+    <div id="groupInformation" style="display: none; position:absolute;border:1px silver;width:290px;height: 700px;left: 1200px;top: 90px">
+    </div>
+
+    <!-- 朋友圈 -->
+    <div id="theSpace" style="display: none">
+    </div>
+
+    <!-- 发表框 -->
+    <div id="thePublish" style="display: none; border: 1px gray; position:absolute;z-index:3">
+        <form action="space/publish" id="publishFrom" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" id="thePublishMessage" placeholder="这一刻的想法..." style="width: 200px;height: 100px">
+                    </td>
+                    <td>
+                        <input type="file" multiple="multiple" name="file" th:value="上传本地图片"/>
+                        <input type="file" multiple="multiple" name="file" th:value="上传本地图片"/>
+                        <input type="file" multiple="multiple" name="file" th:value="上传本地图片"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input id="toPublish" type="button" th:value="发布"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div id="friendsSpace" style="display: none; border: red; position:absolute;margin-top: 320px;margin-left: 10px;width: 1075px;height: 380px;overflow-y:auto; overflow-x:auto" >
+    </div>
+
+    <!-- 五子棋 -->
+    <div id="GoBang" style="display: none; float: left;margin-left: 10px">
+    </div>
+
+    <div id="GoBangInviteList" style="overflow-y:auto;height: 650px;width: 400px;float: right;margin-right: 20px">
+    </div>
+
+    <!-- 棋盘 -->
+    <div id="Checkerboard" style="display: none">
+
+        <!-- 左6,右18,上10,下21,每格宽50.7,高45.4 -->
+        <div id="ggggg">
+
+        </div>
+
+        <div id="theBoard" style="position:absolute; left: 460px;top: 0px">
+            <img src="image/timg11111.jpg">
+        </div>
+
+        <div id="kkkk" style="display: none; position:absolute; left: 1300px;top: 40px">
+            <button onclick="kkkk()">清空</button>
+        </div>
+
+<!--        显示谁的回合-->
+        <div id="vvvv" style="position:absolute; left: 1300px;top: 80px">
+
+        </div>
+
+    </div>
+
+
+</div>
+</body>
+</html>

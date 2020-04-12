@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ittttt.provider.mapper.UnclassifiedMapper">
+	<select id="findGroupChatByNumber" resultType="com.ittttt.provider.pojo.GroupChat">
+		select  * from GroupChat where groupNumber = #{groupNumber}
+	</select>
+
+	<select id="findUnreadInvitation" resultType="com.ittttt.provider.pojo.NotifyMessage">
+		select  * from NotifyMessage where toNumber = #{toNumber} and state = 1
+	</select>
+
+	<select id="findMyGroup" resultType="java.lang.String">
+		select  groupNumber from GroupMember where accountNumber = #{accountNumber}
+	</select>
+
+	<select id="findUsersByGroupNumber" resultType="java.lang.String">
+		select  accountNumber from GroupMember where groupNumber = #{groupNumber}
+	</select>
+
+	<select id="findLastMessage" resultType="java.lang.String">
+		select content from groupmessage WHERE groupNumber = #{groupNumber} order by theDate desc LIMIT 1
+	</select>
+
+    <insert id="newGroupChat" parameterType="com.ittttt.provider.pojo.GroupChat">
+		insert into GroupChat (groupName,groupNumber,groupCount) values (#{groupName},#{groupNumber},#{groupCount})
+	</insert>
+
+    <insert id="addGroupMember" parameterType="com.ittttt.provider.pojo.GroupMember">
+		insert into GroupMember (groupNumber,accountNumber) values (#{groupNumber},#{accountNumber})
+	</insert>
+
+	<update id="updateGroupCount" parameterType="java.lang.String">
+		update GroupChat SET
+		 groupCount = groupCount+1
+		 WHERE groupNumber = #{groupNumber}
+	</update>
+</mapper>

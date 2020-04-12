@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:background-color="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>轻聊</title>
+    <link rel="shortcut icon" href="../resources/favicon.ico" th:href="@{/static/favicon.ico}"/>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 下面是搜索框样式 */
+        .searchBox{
+            width: 80%;
+            height: 35px;
+
+
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .inputBox{
+            border: none;
+            width: 84%;
+            height: 25px;
+            line-height: 35px;
+            outline: none;
+
+            /* 改变光标的颜色 */
+            caret-color:#008B8B;
+            font-size: 14px;
+            border-radius: 5px;
+            background-color: gainsboro;
+
+        }
+        html{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            height: 100%;
+            width: 100%;
+        }
+
+        .warper{clear: both;margin: 10px;display: block;
+            min-height: 32px;
+        }
+        .voiceItem{
+            background-color:skyblue;
+            min-width: 100px;
+            min-height: 32px;
+            border-radius: 3px;
+            float: right;
+            cursor: pointer;
+            line-height: 32px;
+            text-indent: 10px;
+        }
+        audio{display: none;}
+
+        #newGroupChat{
+            width:500px;
+            height:400px;
+            position:absolute;
+            top:50%;
+            left:50%;
+            margin-top:-200px;     /*注意：这里的上，左边距的偏移是关键，一定要是height值的一半*/
+            margin-left:-250px;    /*注意：这里的上，左边距的偏移是关键，一定要是width值的一半*/
+            border:1px solid #ffffcc;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="js/stomp.min.js"></script>
+<script type="text/javascript" src="js/sockjs.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+
+<body style="height: 100%">
+
+<div style="background-color:black;width:5%; height:100%;float: left">
+    <div th:replace="~{commons/sidebar::sidebar}"></div>
+</div>
+
+<div style="background-color:#F5F5F5;width:25%; height:100%;float: left;overflow-y:auto; overflow-x:auto">
+    <div th:replace="~{commons/listbar::listbar}"></div>
+</div>
+
+<div style="background-color:white;width:70%; height:100%;float: left">
+    <div th:replace="~{commons/chatbar::chatbar}" ></div>
+</div>
+
+<!--新建群聊时弹出的框-->
+<div id="newGroupChat" style="background-color: lavender">
+    <div id="leftDiv" style="float:left;height: 400px;width: 250px;overflow-y:auto; overflow-x:auto">
+    </div>
+    <div id="rightDiv" style="float:left;height: 400px;width: 250px;overflow-y:auto; overflow-x:auto">
+        <span>点击添加需要的联系人</span>
+        <button style="margin-top: 350px;float: left" onclick="toClose()">取消</button>
+        <button style="margin-top: 350px;float: right" onclick="toEstablish()">创建或邀请</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/recoder.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/listbar.js"></script>
+<script src="js/chatbar.js"></script>
+<script src="js/home.js"></script>
+</html>

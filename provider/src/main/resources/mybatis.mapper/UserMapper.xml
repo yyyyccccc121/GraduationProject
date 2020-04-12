@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ittttt.provider.mapper.SysUserMapper">
+    <select id="findByaccountnumber" resultType="com.ittttt.provider.pojo.SysUser">
+		select  * from sys_user where accountNumber = #{accountnumber}
+	</select>
+
+	<select id="findUrlByname" resultType="java.lang.String">
+		select  headPortrait from sys_user where accountNumber = #{accountnumber}
+	</select>
+
+	<select id="findAllHead" resultType="com.ittttt.provider.pojo.recommendHead">
+        select * from recommendHead
+	</select>
+
+	<select id="findAllUser" resultType="com.ittttt.provider.pojo.SysUser">
+        select * from sys_user
+	</select>
+
+	<insert id="adduser" parameterType="com.ittttt.provider.pojo.SysUser">
+		insert into sys_user (accountNumber,password,nickName,headPortrait) values (#{accountnumber},#{password},#{nickName},#{headPortrait})
+	</insert>
+
+	<update id="updateUser" parameterType="java.lang.String">
+		update sys_user SET
+		 nickName = #{nickName},sex = #{sex},region = #{region},signature = #{signature}
+		 WHERE accountNumber = #{accountNumber}
+	</update>
+
+	<update id="updateHead" parameterType="java.lang.String">
+		update sys_user SET
+		 headPortrait = #{finalUrl}
+		 WHERE accountNumber = #{accountNumber}
+	</update>
+</mapper>

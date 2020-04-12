@@ -1,0 +1,32 @@
+server:
+  port: 8001
+  ssl:
+    key-store: 3416159_dxkbz.top.pfx
+    key-store-password: YexM1wAn
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wechat?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+  application:
+    name: CONSUMER-TICKET
+
+mybatis:
+  mapper-locations: classpath:com.boot.mapper/*.xml
+  type-aliases-package: com.boot.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.boot.mapper: debug
+  file: logs/core.log
+
+eureka:
+  instance:
+    prefer-ip-address: true # 注册服务的时候使用服务的ip地址
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

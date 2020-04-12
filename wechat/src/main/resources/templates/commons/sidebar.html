@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>侧边栏</title>
+</head>
+<body>
+<div th:fragment="sidebar" style="position: relative">
+
+    <!-- 头像框 -->
+    <div onclick="dianwo()" style="margin-top: 15px;margin-left: 15px">
+        <img id="headPortrait"  th:src="${headPortrait}" th:width="40px" th:height="40px">
+    </div>
+
+    <!-- 消息框 -->
+    <!--默认显示-->
+    <div id="xiaoxi" style="margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/LXnkK6LY/u-2843112812-2945519211-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+    <!--默认隐藏-->
+    <div id="xiaoxi1" onclick="xiaoxi1()" style="display: none; margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/Z5d5N1mh/u-1416098174-1555082847-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+
+    <!-- 联系人 -->
+    <!--默认显示-->
+    <div id="lianxiren" onclick="lianxiren()" style="margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/LXH9r51H/1231231.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+    <!--默认隐藏-->
+    <div id="lianxiren1" style="display: none; margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/1X8QQq5Z/123123.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+
+    <!-- 群聊 -->
+    <!--默认显示-->
+    <div id="GroupChat" onclick="GroupChat()" style="margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/8krZ28Fy/u-1547889828-831773071-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+    <!--默认隐藏-->
+    <div id="GroupChat1" style="display: none; margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/W4FZdVcC/u-1962234693-3032711978-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+
+    <!-- 朋友圈 -->
+    <!--默认显示-->
+    <div id="space" onclick="openSpace()" style="margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/jqJ48tqR/u-1786525242-896920664-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+    <!--默认隐藏-->
+    <div id="space1" style="display: none; margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/J4dmRfHY/u-3809323581-3513100064-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+
+    <!-- 小游戏 -->
+    <!--默认显示-->
+    <div id="game" onclick="openGame()" style="margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/wTP4h3JH/3321.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+    <!--默认隐藏-->
+    <div id="game1" style="display: none; margin-top: 45px;margin-left: 15px">
+        <img src="https://i.postimg.cc/vBqtbStM/u-2074919365-2270016292-fm-26-gp-0.jpg" width="40px" height="40px" style="border-radius: 50%">
+    </div>
+
+    <!--显示信息框 -->
+    <div class="zhezhao" id='zhezhao' style="display: none; z-index: 5;position: absolute;top: 25px;left: 30px">
+        <div class="tankuang">
+            <div style="width: 300px;height: 250px;background: mintcream">
+                <br/>
+                <span th:text="${nickName}?:'小萌新'"></span>
+                <span th:text="${sex}?:'属性未知'"></span><br/>
+                账号:<span th:text="${accountNumber}"></span>
+                <img th:src="${headPortrait}" th:width="60px" th:height="60px" style="margin-left: 40px"><br/><br/>
+                <hr/>
+                地区:<span th:text="${region}?:'中国'"></span><br/>
+                个性签名:<span th:text="${signature}?:'这个人很懒，还没有个性签名'"></span><br/>
+
+                <span id="header-right" onclick="hidder()" style="margin-top: 5px">
+                    <img src="https://i.postimg.cc/VL1DpsQk/u-2054523850-3228399673-fm-26-gp-0.jpg" style="border-radius: 50%" th:width="30px" th:height="30px">
+                </span>
+                &emsp;
+                <span onclick="editPageDisplay()">
+                    <img src="https://i.postimg.cc/3N0nhWrk/u-1894874535-4085907307-fm-26-gp-0.jpg" style="border-radius: 50%" th:width="30px" th:height="30px">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--编辑信息框 -->
+    <div id='editPage' style="z-index: 5;position: absolute;top: 25px;left: 30px">
+        <div style="width: 300px;height: 250px;background: mintcream">
+
+            <img th:src="${headPortrait}" th:width="40px" th:height="40px">
+            <button onclick="editHead()" style="margin-top: 10px;margin-left: 15px">
+                编辑头像
+            </button>
+
+            <form action="touser/editUser" method="post">
+                <table>
+                    <tr>
+                        <td>昵称</td>
+                        <td><input type="text" th:value="${nickName}" name="nickName"/></td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td>
+                            <label><input type="radio" name="sex" value="男">男</label>
+                            <label><input type="radio" name="sex" value="女">女</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>地区</td>
+                        <td><input type="text" th:value="${region}" name="region"/></td>
+                    </tr>
+                    <tr>
+                        <td>签名</td>
+                        <td><input type="text" th:value="${signature}" name="signature"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" th:value="保存"></td>
+                    </tr>
+                </table>
+            </form>
+            <span onclick="editPageHider()">
+                <button>关闭</button>
+            </span>
+        </div>
+    </div>
+
+<!--     编辑头像 -->
+    <div id='editHead' style="z-index: 5;position: absolute;top: 25px;left: 30px">
+        <div style="width: 300px;height: 250px;background: mintcream">
+
+            <form action="touser/editHead" method="post" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        &emsp;<img th:src="${headPortrait}" th:width="40px" th:height="40px">&emsp;
+                        <td><input type="file" id="aptitude" name="file" th:value="上传本地图片"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" th:value="上传保存"></td>
+                    </tr>
+                </table>
+            </form>
+
+
+            <button onclick="RecommendHead()" style="margin-top: 15px">
+                使用推荐头像
+            </button>
+
+
+
+            <div onclick="editHeadHider()" style="margin-top: 15px">
+                <button>关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 推荐头像 -->
+    <div id='RecommendHead' style="display: none; z-index: 5;position: absolute;top: 25px;left: 30px">
+        <div style="width: 400px;background: white">
+
+            <div id="listHead">
+            </div>
+
+            <div onclick="RecommendHeadHider()">
+                <button>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
